@@ -3,8 +3,11 @@ from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
-driver=webdriver.Chrome(executable_path=r'./chromedriver.exe')
+options = Options()
+options.add_argument("window-size=1920,1080")
+driver = webdriver.Chrome(options = options, executable_path=r'./chromedriver.exe')
 
 driver.get('https://buscacepinter.correios.com.br/app/endereco/index.php')
 
@@ -35,11 +38,11 @@ try:
     driver.find_element(By.CSS_SELECTOR,'div[id="minimap"] > div > div button[aria-labelledby="widget-minimap-icon-overlay"]').click()
     sleep(3)
 
-    driver.get_screenshot_as_png()
-    
+    driver.save_screenshot("print_mapa.png")
+
 except NoSuchElementException:
     print("elemento nao encontrado")
 
-sleep(1)
 
-#driver.close()
+
+driver.close()
